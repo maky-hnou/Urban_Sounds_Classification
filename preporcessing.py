@@ -35,11 +35,12 @@ def img_to_array(images_path, labels_file, img_size):
     np.save('train_data.npy', data)
 
 
-def prepare_data(audio_path):
-    if not os.path.exists('spectrogram'):
-        os.makedirs('spectrogram')
+def prepare_data(audio_path, destination_folder, csv_file):
+    if not os.path.exists(destination_folder):
+        os.makedirs(destination_folder)
     for audio in tqdm(glob.glob(audio_path + '/*.wav')):
-        draw_spectrogram(audio_file=audio, destination_folder='spectrogram')
-    img_to_array(images_path='spectrogram',
-                 labels_file='train.csv',
+        draw_spectrogram(audio_file=audio,
+                         destination_folder=destination_folder)
+    img_to_array(images_path=destination_folder,
+                 labels_file=csv_file,
                  img_size=(64, 64))
