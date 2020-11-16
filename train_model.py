@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 
 
-class Train:
+class TrainModel:
     def __init__(self, data_path):
         self.data_path = data_path
         self.data_x, self.data_y = self.load_data()
