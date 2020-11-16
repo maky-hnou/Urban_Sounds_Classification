@@ -6,11 +6,10 @@ import tensorflow as tf
 
 
 class TestModel:
-    def __init__(self, audio_file, weights_path, json_path, data_path):
+    def __init__(self, audio_file, weights_path, json_path):
         self.audio_file = audio_file
         self.weights_path = weights_path
         self.json_path = json_path
-        self.data_path = data_path
         self.classes = ['siren', 'street_music', 'drilling', 'dog_bark',
                         'children_playing', 'gun_shot', 'engine_idling',
                         'air_conditioner', 'jackhammer', 'car_horn']
