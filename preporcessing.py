@@ -10,6 +10,20 @@ from tqdm import tqdm
 
 
 def draw_spectrogram(audio_file, destination_folder):
+    """Draw the spectrogram of an input audio file and save it to an image.
+
+    Parameters
+    ----------
+    audio_file : str
+        the path to the input audio file.
+    destination_folder : str
+        Where the image will be saves`.
+
+    Returns
+    -------
+    None.
+
+    """
     audio_ts, sample_rate = librosa.load(audio_file, sr=None,
                                          res_type='kaiser_fast')
     base_name = os.path.basename(audio_file)
@@ -20,6 +34,23 @@ def draw_spectrogram(audio_file, destination_folder):
 
 
 def img_to_array(images_path, labels_file, img_size):
+    """Save the images and their labels to a numpy file.
+
+    Parameters
+    ----------
+    images_path : str
+        The path to the images.
+    labels_file : str
+        The path to the labels file.
+    img_size : tuple
+        The dimensions of the image to be resized.
+
+    Returns
+    -------
+    type
+        Description of returned object.
+
+    """
     df = pd.read_csv(labels_file)
     labels = pd.unique(df['Class']).tolist()
     data = []
@@ -36,6 +67,22 @@ def img_to_array(images_path, labels_file, img_size):
 
 
 def prepare_data(audio_path, destination_folder, csv_file):
+    """Launch the preporcessing process.
+
+    Parameters
+    ----------
+    audio_path : str
+        The path to the audio files.
+    destination_folder : str
+        Where to save the images and the npy file.
+    csv_file : str
+        The path to the labels file.
+
+    Returns
+    -------
+    None.
+
+    """
     if not os.path.exists(destination_folder):
         os.makedirs(destination_folder)
     for audio in tqdm(glob.glob(audio_path + '/*.wav')):
