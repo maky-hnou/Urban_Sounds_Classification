@@ -53,7 +53,7 @@ Download the train and test files then extract them in the repository.
 **4- Run the training or testing:**  
 To run the training or the test the pre-trained model, run:  
 ```
-python3 main --mode <train/test>
+python3 main.py --mode <train/test>
 ```
 Then follow the steps; you'll be asked to give the path to files and folders based on the chosen mode.
 
