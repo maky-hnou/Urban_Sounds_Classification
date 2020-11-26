@@ -6,17 +6,52 @@ import tensorflow as tf
 
 
 class TrainModel:
+    """Class to create and train the model.
+
+    Parameters
+    ----------
+    data_path : str
+        The path to the npy file.
+
+    Attributes
+    ----------
+    data_x : numpy ndarray
+        An array of the spectrograms of the audio files.
+    data_y : numpy ndarray
+        An array of the categories of the audio.
+    data_path
+
+    """
+
     def __init__(self, data_path):
         self.data_path = data_path
         self.data_x, self.data_y = self.load_data()
 
     def load_data(self):
+        """Load the spectrograms and labels from the npy file.
+
+        Returns
+        -------
+        images: numpy ndarray
+            An array of the spectrograms of the audio files.
+        labels:numpy ndarray
+            An array of the categories of the audio.
+
+        """
         data = np.load(self.data_path, allow_pickle=True)
         images = np.array([i[0] for i in data])
         labels = np.array([i[1] for i in data])
         return images, labels
 
     def create_model(self):
+        """Create the model.
+
+        Returns
+        -------
+        model: tf.keras.models
+            The created model.
+
+        """
         model = tf.keras.models.Sequential()
 
         model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(
@@ -55,6 +90,13 @@ class TrainModel:
         return model
 
     def run_training(self):
+        """Launch the training then save the trained model.
+
+        Returns
+        -------
+        None.
+
+        """
         train_x = self.data_x[:5000]
         train_y = self.data_y[:5000]
         valid_x = self.data_x[5000:]
