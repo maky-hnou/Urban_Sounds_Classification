@@ -33,7 +33,7 @@ def draw_spectrogram(audio_file, destination_folder):
     cv2.imwrite(os.path.join(destination_folder, image_name), spectrogram)
 
 
-def img_to_array(images_path, labels_file, img_size):
+def img_to_array(images_path, labels_file, img_size, npy_file):
     """Save the images and their labels to a numpy file.
 
     Parameters
@@ -44,6 +44,8 @@ def img_to_array(images_path, labels_file, img_size):
         The path to the labels file.
     img_size : tuple
         The dimensions of the image to be resized.
+    npy_file: str
+        The path to the npy file containing the training data
 
     Returns
     -------
@@ -63,10 +65,10 @@ def img_to_array(images_path, labels_file, img_size):
         label_idx = labels.index(row['Class'])
         labels_null[label_idx] = 1
         data.append(np.array([np.array(normalized_img), labels_null]))
-    np.save('train_data.npy', data)
+    np.save(npy_file, data)
 
 
-def prepare_data(audio_path, destination_folder, csv_file):
+def prepare_data(audio_path, destination_folder, csv_file, npy_file):
     """Launch the preporcessing process.
 
     Parameters
@@ -77,6 +79,8 @@ def prepare_data(audio_path, destination_folder, csv_file):
         Where to save the images and the npy file.
     csv_file : str
         The path to the labels file.
+    npy_file: str
+        The path to the npy file containing the training data
 
     Returns
     -------
@@ -90,4 +94,5 @@ def prepare_data(audio_path, destination_folder, csv_file):
                          destination_folder=destination_folder)
     img_to_array(images_path=destination_folder,
                  labels_file=csv_file,
-                 img_size=(64, 64))
+                 img_size=(64, 64),
+                 npy_file=npy_file)
